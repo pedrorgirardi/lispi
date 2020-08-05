@@ -15,12 +15,12 @@
 (defn read-from-tokens' [[token & more]]
   (cond
     (= "(" token)
-    (loop [L []
+    (loop [L '()
            tokens more]
       (if (= ")" (first tokens))
-        [L (next tokens)]
+        [(reverse L) (next tokens)]
         (let [[expression tokens] (read-from-tokens' tokens)
-              L' (conj L expression)]
+              L' (cons expression L)]
           (recur L' tokens))))
 
     (= ")" token)
