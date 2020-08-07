@@ -42,7 +42,8 @@
 
 
 (defn read-from-tokens [tokens]
-  (first (read-from-tokens' tokens)))
+  (when (seq tokens)
+    (first (read-from-tokens' tokens))))
 
 (s/fdef read-from-tokens
   :args (s/cat :tokens :lispi/tokens)
