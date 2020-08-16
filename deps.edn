@@ -1,2 +1,9 @@
 {:paths ["src"]
- :aliases {:test {:extra-paths ["test"]}}}
+
+ :aliases
+ {:test
+  {:extra-paths ["test"]}
+
+  :rebel
+  {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
+   :main-opts ["-m" "rebel-readline.main"]}}}
