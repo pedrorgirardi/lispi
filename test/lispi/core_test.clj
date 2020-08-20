@@ -11,3 +11,10 @@
   (is (= [[1 [2 3]] nil] (lispi/read-from-tokens' ["(" "1" "(" "2" "3" ")" ")"])))
   (is (= [[[[[]]]] nil] (lispi/read-from-tokens' ["(" "(" "(" "(" ")" ")" ")" ")"])))
   (is (= [[1 2 [3 [4]]] nil] (lispi/read-from-tokens' ["(" "1" "2" "(" "3" "(" "4" ")" ")" ")"]))))
+
+(comment
+  (require 'lispi.core-test)
+  
+  (in-ns 'lispi.core-test)
+
+  (run-tests))
