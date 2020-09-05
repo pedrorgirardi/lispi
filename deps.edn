@@ -9,4 +9,4 @@
    :main-opts ["-m" "nrepl.cmdline" "-i"]}
 
   :portal
-  {:extra-deps {djblue/portal {:mvn/version "0.4.0"}}}}}
+  {:extra-deps {djblue/portal {:mvn/version "0.4.1"}}}}}
