@@ -50,8 +50,6 @@
   :ret :lispi/expression)
 
 (comment
-  (require '[portal.api :as p])
-  
   
   (require '[lispi.core :refer :all])
   
@@ -60,6 +58,7 @@
   (read-from-tokens ["(" "1" "2" "(" "3" ")" ")"])
   
   
+  (require '[portal.api :as p])
   (p/open {:portal.colors/theme :portal.colors/solarized-light})
   (p/tap)
   (p/close)
