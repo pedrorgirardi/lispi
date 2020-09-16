@@ -52,12 +52,17 @@
 (comment
   (require '[portal.api :as p])
   
+  
+  (require '[lispi.core :refer :all])
+  
+  (read-from-tokens ["1"])
+  (read-from-tokens ["(" ")"])
+  (read-from-tokens ["(" "1" "2" "(" "3" ")" ")"])
+  
+  
   (p/open {:portal.colors/theme :portal.colors/solarized-light})
   (p/tap)
   (p/close)
-  
-  
-  (require '[lispi.core :refer :all])
 
   (tap> (read-from-tokens ["1"]))
   (tap> (read-from-tokens ["(" ")"]))
