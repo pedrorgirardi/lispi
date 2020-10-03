@@ -73,6 +73,8 @@
 
   (require '[lispi.core :refer :all])
 
+  (tokenize "(1 2 (3))")
+
   (read-from-tokens ["1"])
   (read-from-tokens ["(" ")"])
   (read-from-tokens (tokenize "(1 2 (3))"))
