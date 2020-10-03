@@ -1,10 +1,11 @@
 (ns lispi.core
   (:require [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]))
+            [clojure.spec.test.alpha :as stest]
+            [clojure.string :as str]))
 
 (stest/instrument)
 
-(s/def :lispi/tokens sequential?)
+(s/def :lispi/tokens (s/every string? :kind vector?))
 
 (s/def :lispi/symbol symbol?)
 
@@ -19,6 +20,17 @@
                                :list :lispi/list))
 
 (s/def :lispi/env map?)
+
+(defn tokenize [s]
+  (let [s (-> s
+              (str/replace "(" " ( ")
+              (str/replace ")" " ) ")
+              (str/split #"\s+"))]
+    (remove str/blank? s)))
+
+(s/fdef tokenize
+  :args (s/cat :source string?)
+  :ret :lispi/tokens)
 
 (defn read-from-tokens' [[token & more]]
   (cond
@@ -58,14 +70,14 @@
   :ret :lispi/expression)
 
 (comment
-  
+
   (require '[lispi.core :refer :all])
-  
+
   (read-from-tokens ["1"])
   (read-from-tokens ["(" ")"])
-  (read-from-tokens ["(" "1" "2" "(" "3" ")" ")"])
-  
-  
+  (read-from-tokens (tokenize "(1 2 (3))"))
+
+
   (require '[portal.api :as p])
   (p/open {:portal.colors/theme :portal.colors/solarized-light})
   (p/tap)
@@ -74,6 +86,5 @@
   (tap> (read-from-tokens ["1"]))
   (tap> (read-from-tokens ["(" ")"]))
   (tap> (read-from-tokens ["(" "1" "2" "(" "3" ")" ")"]))
-  
 
   )
