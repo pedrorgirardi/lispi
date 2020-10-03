@@ -5,11 +5,19 @@
 (stest/instrument)
 
 (s/def :lispi/tokens sequential?)
+
 (s/def :lispi/symbol symbol?)
+
 (s/def :lispi/number number?)
-(s/def :lispi/atom (s/or :number :lispi/number :symbol :lispi/symbol))
+
+(s/def :lispi/atom (s/or :number :lispi/number
+                         :symbol :lispi/symbol))
+
 (s/def :lispi/list vector?)
-(s/def :lispi/expression (s/or :atom :lispi/atom :list :lispi/list))
+
+(s/def :lispi/expression (s/or :atom :lispi/atom
+                               :list :lispi/list))
+
 (s/def :lispi/env map?)
 
 (defn read-from-tokens' [[token & more]]
