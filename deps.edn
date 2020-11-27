@@ -5,12 +5,12 @@
   {:extra-paths ["test"]}
 
   :nrepl
-  {:extra-deps {nrepl/nrepl {:mvn/version "0.8.2"}}
+  {:extra-deps {nrepl/nrepl {:mvn/version "0.8.3"}}
    :main-opts ["-m" "nrepl.cmdline" "-i"]}
 
   :portal
-  {:extra-deps {djblue/portal {:mvn/version "0.5.1"}}}
+  {:extra-deps {djblue/portal {:mvn/version "0.6.4"}}}
 
   :reveal
-  {:extra-deps {vlaaad/reveal {:mvn/version "1.0.130"}}
+  {:extra-deps {vlaaad/reveal {:mvn/version "1.0.164"}}
    :main-opts ["-m" "vlaaad.reveal" "repl"]}}}
