@@ -80,12 +80,19 @@
   (read-from-tokens ["(" ")"])
   (read-from-tokens (tokenize "(1 2 (3))"))
 
-
+  
+  ;; Portal.
+  
   (require '[portal.api :as p])
+  
   (p/open {:portal.colors/theme :portal.colors/solarized-light})
-  (p/tap)
+  
+  (add-tap #'p/submit)
+  (remove-tap #'p/submit)
+  
+  (p/clear)
   (p/close)
-
+  
   (tap> (read-from-tokens ["1"]))
   (tap> (read-from-tokens ["(" ")"]))
   (tap> (read-from-tokens ["(" "1" "2" "(" "3" ")" ")"]))
