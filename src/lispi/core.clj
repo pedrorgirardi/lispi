@@ -11,13 +11,17 @@
 
 (s/def :lispi/number number?)
 
-(s/def :lispi/atom (s/or :number :lispi/number
-                         :symbol :lispi/symbol))
+(s/def :lispi/atom
+  (s/or
+    :number :lispi/number
+    :symbol :lispi/symbol))
 
 (s/def :lispi/list vector?)
 
-(s/def :lispi/expression (s/or :atom :lispi/atom
-                               :list :lispi/list))
+(s/def :lispi/expression
+  (s/or
+    :atom :lispi/atom
+    :list :lispi/list))
 
 (s/def :lispi/env map?)
 
@@ -80,21 +84,21 @@
   (read-from-tokens ["(" ")"])
   (read-from-tokens (tokenize "(1 2 (3))"))
 
-  
+
   ;; Portal.
-  
+
   (require '[portal.api :as p])
-  
+
   (p/open {:portal.colors/theme :portal.colors/solarized-light})
-  
+
   (add-tap #'p/submit)
   (remove-tap #'p/submit)
-  
+
   (p/clear)
   (p/close)
-  
+
   (tap> (read-from-tokens ["1"]))
   (tap> (read-from-tokens ["(" ")"]))
   (tap> (read-from-tokens ["(" "1" "2" "(" "3" ")" ")"]))
 
-  )
+)
