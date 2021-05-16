@@ -71,7 +71,8 @@
 
 (comment
 
-  (require '[lispi.core :refer :all])
+  (require 'lispi.core)
+  (in-ns 'lispi.core)
 
   (tokenize "(1 2 (3))")
 
