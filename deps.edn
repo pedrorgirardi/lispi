@@ -9,9 +9,9 @@
    :main-opts ["-m" "nrepl.cmdline" "-i"]}
 
   :portal
-  {:extra-deps {djblue/portal {:mvn/version "0.11.0"}}}
+  {:extra-deps {djblue/portal {:mvn/version "0.11.2"}}}
 
   :reveal
-  {:extra-deps {vlaaad/reveal {:mvn/version "1.3.206"}}
+  {:extra-deps {vlaaad/reveal {:mvn/version "1.3.209"}}
    :ns-default vlaaad.reveal
    :exec-fn repl}}}
