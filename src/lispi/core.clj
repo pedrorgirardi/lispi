@@ -17,11 +17,32 @@
   
     - A list starting with a non-keyword, e.g. (fn ...), is a function call.
   
+  
+  What A Language Interpreter Does
+  
+  A language interpreter has two parts:
+  
+  1. Parsing: The parsing component takes an input program in the form of a sequence of characters, 
+     verifies it according to the syntactic rules of the language, and translates the program into an internal representation.
+  
+     In a simple interpreter the internal representation is a tree structure (often called an abstract syntax tree) 
+     that closely mirrors the nested structure of statements or expressions in the program.
+  
+     In a language translator called a compiler there is often a series of internal representations, 
+     starting with an abstract syntax tree, and progressing to a sequence of instructions that can be directly executed by the computer.
+     
+     The Lispy parser is implemented with the function parse.
+  
+  2. Execution: The internal representation is then processed according to the semantic rules of the language, thereby carrying out the computation. 
+     Lispy's execution function is called eval (note this shadows Python's built-in function of the same name).
+  
   http://norvig.com/lispy.html"
   (:require 
    [clojure.spec.alpha :as s]
    [clojure.spec.test.alpha :as stest]
-   [clojure.string :as str]))
+   [clojure.string :as str])
+  
+  (:refer-clojure :exclude [eval]))
 
 (stest/instrument)
 
@@ -43,7 +64,12 @@
     :atom :lispi/atom
     :list :lispi/list))
 
-(s/def :lispi/env map?)
+(s/def :lispi/env 
+  (s/map-of :lispi/symbol any?))
+
+
+;; -------------------------------------------
+
 
 (defn tokenize [s]
   (let [s (some-> s
@@ -93,6 +119,12 @@
   :args (s/cat :tokens :lispi/tokens)
   :ret :lispi/expression)
 
+(defn parse [^String s]
+  (read-from-tokens (tokenize s)))
+
+(defn eval [form]
+  nil)
+
 (comment
 
   (tokenize "(1 2 (3))")
@@ -100,5 +132,10 @@
   (read-from-tokens ["1"])
   (read-from-tokens ["(" ")"])
   (read-from-tokens (tokenize "(1 2 (3))"))
+  
+  (parse "(+ 1 (* 2 3))")
+  ;; => [+ 1 [* 2 3]]
+  
+  (eval (parse "1"))
 
 )
