@@ -1,7 +1,14 @@
 (ns lispi.core
-  (:require [clojure.spec.alpha :as s]
-            [clojure.spec.test.alpha :as stest]
-            [clojure.string :as str]))
+  "How to Write a Lisp Interpreter
+  
+  The syntax of a language is the arrangement of characters to form correct statements or expressions; 
+  the semantics is the meaning of those statements or expressions.
+  
+  http://norvig.com/lispy.html"
+  (:require 
+   [clojure.spec.alpha :as s]
+   [clojure.spec.test.alpha :as stest]
+   [clojure.string :as str]))
 
 (stest/instrument)
 
