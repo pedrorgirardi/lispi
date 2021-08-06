@@ -4,6 +4,19 @@
   The syntax of a language is the arrangement of characters to form correct statements or expressions; 
   the semantics is the meaning of those statements or expressions.
   
+  - Scheme programs consist solely of expressions. There is no statement/expression distinction.
+  
+  - Numbers (e.g. 1) and symbols (e.g. A) are called atomic expressions; they cannot be broken into pieces. 
+    These are similar to their Java counterparts, except that in Scheme, operators such as + and > are symbols too, 
+    and are treated the same way as A and fn. 
+  
+  - Everything else is a list expression: a '(', followed by zero or more expressions, followed by a ')'. 
+    The first element of the list determines what it means: 
+  
+    - A list starting with a keyword, e.g. (if ...), is a special form; the meaning depends on the keyword. 
+  
+    - A list starting with a non-keyword, e.g. (fn ...), is a function call.
+  
   http://norvig.com/lispy.html"
   (:require 
    [clojure.spec.alpha :as s]
