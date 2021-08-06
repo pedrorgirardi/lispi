@@ -8,6 +8,30 @@
   (is (= ["(" "1" "2" "(" "3" "(" "4" ")" ")" ")"] (lispi/tokenize "(1 2 (3 (4)))"))))
 
 (deftest read-from-tokens'-test
+  (is (= "no conversion to symbol"
+        (try 
+          (lispi/read-from-tokens' nil) 
+          (catch Exception ex
+            (ex-message ex)))))
+  
+  (is (= "no conversion to symbol"
+        (try 
+          (lispi/read-from-tokens' []) 
+          (catch Exception ex
+            (ex-message ex)))))
+  
+  (is (= "no conversion to symbol"
+        (try 
+          (lispi/read-from-tokens' ["("]) 
+          (catch Exception ex
+            (ex-message ex)))))
+  
+  (is (= "Unexpected )"
+        (try 
+          (lispi/read-from-tokens' [")"]) 
+          (catch Exception ex
+            (ex-message ex)))))
+  
   (is (= [1 nil] (lispi/read-from-tokens' ["1"])))
   (is (= [1.0 nil] (lispi/read-from-tokens' ["1.0"])))
   (is (= [[] nil] (lispi/read-from-tokens' ["(" ")"])))
