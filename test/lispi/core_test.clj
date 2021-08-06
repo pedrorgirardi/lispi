@@ -3,6 +3,8 @@
             [lispi.core :as lispi]))
 
 (deftest tokenize-test
+  (is (= [] (lispi/tokenize nil)))
+  (is (= [] (lispi/tokenize "")))
   (is (= ["(" "1" "2" "(" "3" "(" "4" ")" ")" ")"] (lispi/tokenize "(1 2 (3 (4)))"))))
 
 (deftest read-from-tokens'-test
@@ -15,9 +17,3 @@
   (is (= [[[[[]]]] nil] (lispi/read-from-tokens' ["(" "(" "(" "(" ")" ")" ")" ")"])))
   (is (= [[1 2 [3 [4]]] nil] (lispi/read-from-tokens' ["(" "1" "2" "(" "3" "(" "4" ")" ")" ")"]))))
 
-(comment
-  (require 'lispi.core-test)
-
-  (in-ns 'lispi.core-test)
-
-  (run-tests))

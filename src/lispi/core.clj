@@ -5,7 +5,7 @@
 
 (stest/instrument)
 
-(s/def :lispi/tokens (s/every string? :kind vector?))
+(s/def :lispi/tokens (s/every string?))
 
 (s/def :lispi/symbol symbol?)
 
@@ -26,10 +26,10 @@
 (s/def :lispi/env map?)
 
 (defn tokenize [s]
-  (let [s (-> s
-              (str/replace "(" " ( ")
-              (str/replace ")" " ) ")
-              (str/split #"\s+"))]
+  (let [s (some-> s
+            (str/replace "(" " ( ")
+            (str/replace ")" " ) ")
+            (str/split #"\s+"))]
     (remove str/blank? s)))
 
 (s/fdef tokenize
@@ -75,30 +75,10 @@
 
 (comment
 
-  (require 'lispi.core)
-  (in-ns 'lispi.core)
-
   (tokenize "(1 2 (3))")
 
   (read-from-tokens ["1"])
   (read-from-tokens ["(" ")"])
   (read-from-tokens (tokenize "(1 2 (3))"))
-
-
-  ;; Portal.
-
-  (require '[portal.api :as p])
-
-  (p/open {:portal.colors/theme :portal.colors/solarized-light})
-
-  (add-tap #'p/submit)
-  (remove-tap #'p/submit)
-
-  (p/clear)
-  (p/close)
-
-  (tap> (read-from-tokens ["1"]))
-  (tap> (read-from-tokens ["(" ")"]))
-  (tap> (read-from-tokens ["(" "1" "2" "(" "3" ")" ")"]))
 
 )
