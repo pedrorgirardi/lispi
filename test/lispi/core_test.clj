@@ -41,3 +41,17 @@
   (is (= [[[[[]]]] nil] (lispi/read-from-tokens' ["(" "(" "(" "(" ")" ")" ")" ")"])))
   (is (= [[1 2 [3 [4]]] nil] (lispi/read-from-tokens' ["(" "1" "2" "(" "3" "(" "4" ")" ")" ")"]))))
 
+(deftest eval-test
+  (testing "proc"
+    (is (= 3 (lispi/eval (atom lispi/standard-env) (lispi/parse "(+ 1 2)")))))
+  
+  (testing "if"
+    (is (= 3 (lispi/eval (atom lispi/standard-env) (lispi/parse "(if 1 (+ 1 2) 3)")))))
+  
+  (testing "define"
+    (let [env (atom lispi/standard-env)]
+      
+      (lispi/eval env (lispi/parse "(define x 1)"))
+      
+      (is (= 1 (@env 'x))))))
+
