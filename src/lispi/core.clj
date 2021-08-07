@@ -71,6 +71,13 @@
 ;; -------------------------------------------
 
 
+(def standard-env
+  "An environment with some Scheme standard procedures."
+  {'+ +
+   '- -
+   'car first
+   'cdr rest})
+
 (defn tokenize [s]
   (let [s (some-> s
             (str/replace "(" " ( ")
@@ -122,8 +129,31 @@
 (defn parse [^String s]
   (read-from-tokens (tokenize s)))
 
-(defn eval [form]
-  nil)
+(defn eval [env form]
+  (cond
+    (s/valid? :lispi/number form)
+    form
+    
+    (s/valid? :lispi/symbol form)
+    (@env form)
+    
+    (= 'if (first form))
+    (let [[_ test conseq alt] form]
+      (if (eval env test)
+        (eval env conseq)
+        (eval env alt)))
+    
+    (= 'define (first form))
+    (let [[_ symbol exp] form]
+      (swap! env assoc symbol (eval env exp)))
+    
+    :else
+    (let [[proc & args] form
+          
+          proc (eval env proc)
+          args (map #(eval env %) args)]
+      
+      (apply proc args))))
 
 (comment
 
@@ -136,6 +166,12 @@
   (parse "(+ 1 (* 2 3))")
   ;; => [+ 1 [* 2 3]]
   
-  (eval (parse "1"))
+  (def env (atom standard-env))
+  
+  (eval env (parse "1"))
+  (eval env (parse "(+ 1 2)"))
+  (eval env (parse "(define x 10)"))
+  (eval env (parse "x"))
+  (eval env (parse "(if 1 (+ 1 2) 3)"))
 
 )
