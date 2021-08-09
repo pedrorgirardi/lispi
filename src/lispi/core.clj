@@ -64,6 +64,24 @@
     :atom :lispi/atom
     :list :lispi/list))
 
+(s/def :lispi.form/if
+  (s/cat
+    :if #(= % 'if)
+    :test :lispi/expression
+    :conseq :lispi/expression
+    :alt (s/? :lispi/expression)))
+
+(s/def :lispi.form/define
+  (s/cat
+    :define #(= % 'define)
+    :name :lispi/symbol
+    :value :lispi/expression))
+
+(s/def :lispi/form
+  (s/or
+    :if :lispi.form/if
+    :define :lispi.form/define))
+
 (s/def :lispi/env 
   (s/map-of :lispi/symbol any?))
 
@@ -165,6 +183,10 @@
   
   (parse "(+ 1 (* 2 3))")
   ;; => [+ 1 [* 2 3]]
+  
+  (s/conform :lispi/form '(if 1 2 3))
+  (s/conform :lispi/form '(define x 1))
+  (s/conform :lispi/form '(define x y))
   
   (def env (atom standard-env))
   
