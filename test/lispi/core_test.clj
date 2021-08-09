@@ -43,13 +43,15 @@
 
 (deftest eval-test
   (testing "proc"
-    (is (= 3 (lispi/eval (atom lispi/standard-env) (lispi/parse "(+ 1 2)")))))
+    
+    (testing "+"
+      (is (= 3 (lispi/eval (atom lispi/standard-env) (lispi/parse "(+ 1 2)")))))
+    
+    (testing "begin"
+      (is (= 5 (lispi/eval (atom lispi/standard-env) (lispi/parse "(begin 1 (+ 2 3))"))))))
   
   (testing "if"
     (is (= 2 (lispi/eval (atom lispi/standard-env) (lispi/parse "(if 1 2 3)")))))
-  
-  (testing "begin"
-    (is (= 5 (lispi/eval (atom lispi/standard-env) (lispi/parse "(begin 1 (+ 2 3))")))))
   
   (testing "define"
     (let [env (atom lispi/standard-env)]
