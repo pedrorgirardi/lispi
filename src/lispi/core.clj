@@ -94,7 +94,9 @@
   {'+ +
    '- -
    'car first
-   'cdr rest})
+   'cdr rest
+   'begin (fn [& args]
+            (last args))})
 
 (defn tokenize [s]
   (let [s (some-> s
@@ -149,10 +151,10 @@
 
 (defn eval [env form]
   (cond
-    (s/valid? :lispi/number form)
+    (number? form)
     form
     
-    (s/valid? :lispi/symbol form)
+    (symbol? form)
     (@env form)
     
     (= 'if (first form))

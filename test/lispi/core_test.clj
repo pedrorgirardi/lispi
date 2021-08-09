@@ -48,6 +48,9 @@
   (testing "if"
     (is (= 3 (lispi/eval (atom lispi/standard-env) (lispi/parse "(if 1 (+ 1 2) 3)")))))
   
+  (testing "begin"
+    (is (= 5 (lispi/eval (atom lispi/standard-env) (lispi/parse "(begin 1 (+ 2 3))")))))
+  
   (testing "define"
     (let [env (atom lispi/standard-env)]
       
