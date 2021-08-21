@@ -58,5 +58,11 @@
       
       (lispi/eval env (lispi/parse "(define x 1)"))
       
-      (is (= 1 (@env 'x))))))
+      (is (= 2 (@env 'x))))))
+
+(comment
+  
+  (clojure.test/run-tests)
+  
+  )
 
