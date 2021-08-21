@@ -4,3 +4,4 @@ lispi.iml
 .cpcache/
 .rebel_readline_history
 lispi.sublime-workspace
+.lsp/
