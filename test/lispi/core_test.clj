@@ -58,7 +58,7 @@
       
       (lispi/eval env (lispi/parse "(define x 1)"))
       
-      (is (= 2 (@env 'x))))))
+      (is (= 1 (@env 'x))))))
 
 (comment
   
