@@ -1,6 +1,8 @@
 (ns lispi.core-test
-  (:require [clojure.test :refer :all]
-            [lispi.core :as lispi]))
+  (:require
+   [clojure.test :refer [deftest is testing]]
+   
+   [lispi.core :as lispi]))
 
 (deftest tokenize-test
   (is (= [] (lispi/tokenize nil)))
