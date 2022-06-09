@@ -7,3 +7,4 @@ lispi.sublime-workspace
 .lsp/
 .portal/
 .DS_Store
+.clj-kondo

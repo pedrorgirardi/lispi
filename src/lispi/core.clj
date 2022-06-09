@@ -37,7 +37,7 @@
      Lispy's execution function is called eval (note this shadows Python's built-in function of the same name).
   
   http://norvig.com/lispy.html"
-  (:require 
+  (:require
    [clojure.spec.alpha :as s]
    [clojure.spec.test.alpha :as stest]
    [clojure.string :as str])
